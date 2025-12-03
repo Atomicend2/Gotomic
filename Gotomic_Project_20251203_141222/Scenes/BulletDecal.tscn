@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://s8101a8848d2"]
+
+[ext_resource type="Script" path="res://Scripts/BulletDecal.gd" id="1_1f23k"]
+[ext_resource type="Material3D" uid="uid://cd5pkyglw4w47" path="res://Assets/Materials/decal_material.tres" id="2_f5y6p"]
+
+[node name="BulletDecal" type="MeshInstance3D" groups=["decals"]]
+layers = 7
+material_override = ExtResource("2_f5y6p")
+script = ExtResource("1_1f23k")
+lifetime = 5.0
+fade_time = 1.0

@@ -1,0 +1,151 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm3252v76j3s0"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_x0k78"]
+[ext_resource type="Theme" uid="uid://c6u73u713028j" path="res://UI/Themes/default_theme.tres" id="2_4s6m3"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_4s6m3")
+script = ExtResource("1_x0k78")
+new_game_button = NodePath("MainPanel/VBoxContainer/NewGameButton")
+load_game_button = NodePath("MainPanel/VBoxContainer/LoadGameButton")
+settings_button = NodePath("MainPanel/VBoxContainer/SettingsButton")
+quit_button = NodePath("MainPanel/VBoxContainer/QuitButton")
+settings_panel = NodePath("SettingsPanel")
+main_panel = NodePath("MainPanel")
+master_volume_slider = NodePath("SettingsPanel/VBoxContainer/MasterVolumeSlider")
+sfx_volume_slider = NodePath("SettingsPanel/VBoxContainer/SFXVolumeSlider")
+music_volume_slider = NodePath("SettingsPanel/VBoxContainer/MusicVolumeSlider")
+mouse_sensitivity_slider = NodePath("SettingsPanel/VBoxContainer/MouseSensitivitySlider")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.1, 1)
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+text = "GODOMIC HORROR"
+horizontal_alignment = 1
+
+[node name="NewGameButton" type="Button" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="LoadGameButton" type="Button" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="SettingsButton" type="Button" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="SettingsPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="MasterVolumeLabel" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Master Volume:"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFXVolumeLabel" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "SFX Volume:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MusicVolumeLabel" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Music Volume:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MouseSensitivityLabel" type="Label" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Mouse Sensitivity:"
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 2.0
+step = 0.05
+value = 0.5
+
+[node name="BackButton" type="Button" parent="SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Back"

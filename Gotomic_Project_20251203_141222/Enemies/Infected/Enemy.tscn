@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://b04tq3v831v5e"]
+
+[ext_resource type="ArrayMesh" path="res://Assets/Models/cube.obj" id="1_x0k78"]
+[ext_resource type="Material3D" uid="uid://cyy5k2n7lbt0u" path="res://Assets/Materials/enemy_material.tres" id="2_4h4w4"]
+[ext_resource type="Script" path="res://Scripts/EnemyAI.gd" id="3_gwx73"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1c70"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e570f"]
+_data = {
+"attack": null,
+"death": null,
+"idle": null,
+"run": null
+}
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("3_gwx73")
+max_health = 100.0
+mesh_instance = NodePath("MeshInstance3D")
+collision_shape = NodePath("CollisionShape3D")
+nav_agent = NodePath("NavigationAgent3D")
+detection_area = NodePath("DetectionArea")
+enemy_anim_player = NodePath("AnimationPlayer")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0.9, 0)
+mesh = ExtResource("1_x0k78")
+surface_material_override/0 = ExtResource("2_4h4w4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_y1c70")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+avoidance_enabled = true
+radius = 0.4
+neighbor_distance = 3.0
+max_neighbors = 10
+max_speed = 5.0
+path_max_distance = 50.0
+
+[node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("CapsuleShape3D_y1c70")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e570f")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"

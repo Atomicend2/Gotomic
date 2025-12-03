@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnxsy8p2k2i3w"]
+
+[ext_resource type="Script" path="res://Scripts/MuzzleFlash.gd" id="1_2n0m4"]
+[ext_resource type="Material3D" uid="uid://c9n44f6fshltt" path="res://Assets/Materials/muzzle_flash_material.tres" id="2_h3g02"]
+
+[node name="MuzzleFlash" type="CPUParticles3D"]
+emitting = false
+amount = 8
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 0
+process_material = ExtResource("2_h3g02")
+draw_pass_1 = null
+script = ExtResource("1_2n0m4")
+flash_lifetime = 0.1
+random_rotation = 360.0

@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh301j008m7w"]
+
+[ext_resource type="ArrayMesh" path="res://Assets/Models/cube.obj" id="1_d75f3"]
+[ext_resource type="Script" path="res://Scripts/BulletProjectile.gd" id="1_w62ty"]
+[ext_resource type="Material3D" uid="uid://clx5h67v0l10a" path="res://Assets/Materials/bullet_material.tres" id="2_m1t7c"]
+[ext_resource type="PackedScene" uid="uid://bnxsy8p2k2i3w" path="res://Scenes/MuzzleFlash.tscn" id="3_y3076"]
+
+[node name="BulletProjectile" type="RayCast3D" groups=["enemy_bullets"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 16
+collision_mask = 6
+target_position = Vector3(0, 0, -1)
+script = ExtResource("1_w62ty")
+impact_effect_scene = ExtResource("3_y3076")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("1_d75f3")
+surface_material_override/0 = ExtResource("2_m1t7c")

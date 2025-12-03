@@ -1,0 +1,305 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddy2u7u824h1e"]
+
+[ext_resource type="Script" path="res://UI/HUD/HUD.gd" id="1_1f26a"]
+[ext_resource type="Theme" uid="uid://c6u73u713028j" path="res://UI/Themes/default_theme.tres" id="2_4h4w4"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1f26a")
+health_bar = NodePath("HealthBar")
+ammo_label = NodePath("AmmoLabel")
+weapon_name_label = NodePath("WeaponNameLabel")
+crosshair_center = NodePath("Crosshair/Center")
+crosshair_left = NodePath("Crosshair/Left")
+crosshair_right = NodePath("Crosshair/Right")
+crosshair_up = NodePath("Crosshair/Up")
+crosshair_down = NodePath("Crosshair/Down")
+interact_prompt_label = NodePath("InteractPromptLabel")
+flashlight_bar = NodePath("FlashlightBar")
+mobile_joystick = NodePath("MobileControls/VirtualJoystick")
+mobile_fire_button = NodePath("MobileControls/BtnFire")
+mobile_ads_button = NodePath("MobileControls/BtnADS")
+mobile_reload_button = NodePath("MobileControls/BtnReload")
+mobile_sprint_button = NodePath("MobileControls/BtnSprint")
+mobile_interact_button = NodePath("MobileControls/BtnInteract")
+mobile_flashlight_button = NodePath("MobileControls/BtnFlashlight")
+crosshair_min_spread = 5.0
+crosshair_max_spread = 20.0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -60.0
+offset_right = 300.0
+offset_bottom = -30.0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="FlashlightBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -90.0
+offset_right = 300.0
+offset_bottom = -70.0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+max_value = 100.0
+value = 100.0
+show_percentage = false
+visible = false
+
+[node name="AmmoLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+text = "12 / 60"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="WeaponNameLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -90.0
+offset_right = -20.0
+offset_bottom = -60.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+text = "Pistol"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InteractPromptLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_4h4w4")
+text = "Press 'E' to Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crosshair" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Left" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -1.0
+offset_right = -5.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Right" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -1.0
+offset_right = 15.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Up" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -15.0
+offset_right = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Down" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = 5.0
+offset_right = 1.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="MobileControls" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VirtualJoystick" type="ColorRect" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = -50.0
+grow_vertical = 0
+color = Color(0.1, 0.1, 0.1, 0.5)
+# Note: Actual joystick functionality requires a custom script not defined here.
+# This is a visual placeholder only.
+
+[node name="BtnFire" type="Button" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -200.0
+offset_right = -80.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+text = "Fire"
+
+[node name="BtnADS" type="Button" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -150.0
+offset_right = -180.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+text = "ADS"
+
+[node name="BtnReload" type="Button" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -250.0
+offset_right = -80.0
+offset_bottom = -200.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_4h4w4")
+text = "Reload"
+
+[node name="BtnSprint" type="Button" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 150.0
+offset_right = -20.0
+offset_bottom = 200.0
+grow_horizontal = 0
+theme = ExtResource("2_4h4w4")
+text = "Sprint"
+
+[node name="BtnInteract" type="Button" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 120.0
+offset_bottom = 100.0
+theme = ExtResource("2_4h4w4")
+text = "Interact"
+
+[node name="BtnFlashlight" type="Button" parent="MobileControls"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 110.0
+offset_right = 120.0
+offset_bottom = 160.0
+theme = ExtResource("2_4h4w4")
+text = "Light"

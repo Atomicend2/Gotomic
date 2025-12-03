@@ -1,0 +1,4 @@
+[gd_resource type="AudioStreamBasic" format=3 uid="uid://cf67d26g51c4t"]
+
+[resource]
+resource_path = "res://Assets/Sounds/placeholder_bgm.wav"

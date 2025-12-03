@@ -1,0 +1,4 @@
+[gd_resource type="AudioStreamBasic" format=3 uid="uid://c3f7j5fkmgy8k"]
+
+[resource]
+resource_path = "res://Assets/Sounds/placeholder_shoot.wav"

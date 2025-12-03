@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw2s3x2p8t33g"]
+
+[ext_resource type="ArrayMesh" path="res://Assets/Models/cube.obj" id="1_gwp10"]
+[ext_resource type="Material3D" uid="uid://cyy5k2n7lbt0u" path="res://Assets/Materials/enemy_material.tres" id="2_d152w"]
+[ext_resource type="Script" path="res://Scripts/SpawningMonsterAI.gd" id="3_6u08k"]
+[ext_resource type="PackedScene" uid="uid://dh301j008m7w" path="res://Scenes/BulletProjectile.tscn" id="4_5370u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1c70"]
+radius = 0.6
+height = 2.0
+
+[node name="SpawningMonster" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("3_6u08k")
+max_health = 150.0
+movement_speed = 1.5
+chase_speed_multiplier = 2.0
+attack_range = 10.0
+attack_damage = 20.0
+attack_cooldown = 2.0
+mesh_instance = NodePath("MeshInstance3D")
+collision_shape = NodePath("CollisionShape3D")
+nav_agent = NodePath("NavigationAgent3D")
+detection_area = NodePath("DetectionArea")
+projectile_scene = ExtResource("4_5370u")
+projectile_spawn_offset = Vector3(0, 1.2, 0.8)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 1.2, 0, 0, 0, 0.7, 0, 1.1, 0)
+mesh = ExtResource("1_gwp10")
+surface_material_override/0 = ExtResource("2_d152w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("CapsuleShape3D_y1c70")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+avoidance_enabled = true
+radius = 0.6
+neighbor_distance = 5.0
+max_neighbors = 10
+max_speed = 5.0
+path_max_distance = 50.0
+
+[node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("CapsuleShape3D_y1c70")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"

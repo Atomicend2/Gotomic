@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://cbp17i6cbsqro"]
+
+[ext_resource type="Script" path="res://Scenes/Player.gd" id="1_4n57r"]
+[ext_resource type="Script" path="res://Scripts/PlayerMovement.gd" id="2_h3qg8"]
+[ext_resource type="Script" path="res://Scripts/PlayerCamera.gd" id="3_6jnjy"]
+[ext_resource type="Script" path="res://Scripts/PlayerCombat.gd" id="4_5w6k0"]
+[ext_resource type="PackedScene" uid="uid://dp6s36151y4j5" path="res://Weapons/Pistol/Pistol.tscn" id="5_7b1o8"]
+[ext_resource type="ArrayMesh" path="res://Assets/Models/cube.obj" id="6_s175y"]
+[ext_resource type="Material3D" uid="uid://cax22c070v56r" path="res://Assets/Materials/player_material.tres" id="7_c337u"]
+[ext_resource type="AudioStreamBasic" uid="uid://bp8v83ooxyp0e" path="res://Assets/Audio/placeholder_footstep.tres" id="8_77wgi"]
+[ext_resource type="PackedScene" uid="uid://ddy2u7u824h1e" path="res://UI/HUD/HUD.tscn" id="9_m4k3x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1c70"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7j671"]
+bounce = 0.0
+friction = 0.5
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_4n57r")
+max_health = 100
+flashlight_max_energy = 100.0
+flashlight_drain_rate = 5.0
+flashlight_recharge_rate = 10.0
+player_movement_script = NodePath("PlayerMovement")
+player_camera_script = NodePath("CameraMount/PlayerCamera")
+player_combat_script = NodePath("PlayerCombat")
+hud_scene = ExtResource("9_m4k3x")
+initial_weapon_scene = ExtResource("5_7b1o8")
+footstep_sound_stream = ExtResource("8_77wgi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_y1c70")
+physics_material_override = SubResource("PhysicsMaterial_7j671")
+
+[node name="CameraMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="PlayerCamera" type="Camera3D" parent="CameraMount" node_paths=PackedStringArray("ray_cast_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+script = ExtResource("3_6jnjy")
+ray_cast_node = NodePath("../PlayerCombat/WeaponRayCast")
+
+[node name="GunSocket" type="Node3D" parent="CameraMount/PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.1, -0.3)
+
+[node name="Flashlight" type="OmniLight3D" parent="CameraMount/PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, -0.1)
+light_color = Color(0.9, 0.9, 0.7, 1)
+light_energy = 3.0
+light_specular = 0.5
+omni_range = 15.0
+omni_attenuation = 1.0
+shadow_enabled = true
+shadow_transmittance_bias = 0.05
+shadow_blur = 0.5
+omni_shadow_mode = 0
+
+[node name="RayCast3D_Ground" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+target_position = Vector3(0, -0.2, 0)
+collision_mask = 1
+
+[node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("_player_body", "_camera_mount", "_camera")]
+script = ExtResource("2_h3qg8")
+_player_body = NodePath("..")
+_camera_mount = NodePath("../CameraMount")
+_camera = NodePath("../CameraMount/PlayerCamera")
+movement_speed = 3.0
+sprint_speed_multiplier = 1.7
+jump_velocity = 4.0
+stamina_max = 100.0
+stamina_regen_rate = 15.0
+stamina_sprint_cost = 20.0
+head_bob_amplitude_x = 0.008
+head_bob_amplitude_y = 0.015
+head_bob_frequency = 12.0
+footstep_interval_walk = 0.5
+footstep_interval_sprint = 0.3
+
+[node name="PlayerCombat" type="Node" parent="." node_paths=PackedStringArray("ray_cast_node", "weapon_socket", "hit_sound_player")]
+script = ExtResource("4_5w6k0")
+ray_cast_node = NodePath("WeaponRayCast")
+weapon_socket = NodePath("../CameraMount/PlayerCamera/GunSocket")
+hit_sound_player = NodePath("HitSoundPlayer")
+
+[node name="WeaponRayCast" type="RayCast3D" parent="PlayerCombat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+target_position = Vector3(0, 0, -50)
+collision_mask = 269
+
+[node name="HitSoundPlayer" type="AudioStreamPlayer3D" parent="PlayerCombat"]
+bus = &"SFX"
+
+[node name="AudioPlayerFootsteps" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"
+
+[node name="DebugBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+visible = false
+mesh = ExtResource("6_s175y")
+surface_material_override/0 = ExtResource("7_c337u")

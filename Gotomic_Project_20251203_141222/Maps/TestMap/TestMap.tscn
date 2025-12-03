@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs1n0u2g84bkb"]
+
+[ext_resource type="Script" path="res://Maps/TestMap/TestMap.gd" id="1_6l700"]
+[ext_resource type="ArrayMesh" path="res://Assets/Models/plane.obj" id="2_csh7p"]
+[ext_resource type="Material3D" uid="uid://bs1n0u2g84bka" path="res://Assets/Materials/world_material.tres" id="3_0b4m2"]
+[ext_resource type="ArrayMesh" path="res://Assets/Models/cube.obj" id="4_s175y"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_7j671"]
+sample_partition_type = 2
+cell_size = 0.25
+detail_mesh_error_max = 1.0
+filter_walkable_low_height_span_count = true
+filter_ledge_spans = true
+filter_walkable_climb = 1.0
+parsed_geometry_type = 2
+parsed_geometry_collision_mask = 1
+source_geometry_mode = 0
+source_geometry_layer_mask = 1
+agent_height = 2.0
+agent_radius = 0.5
+agent_max_climb = 0.5
+agent_max_slope = 45.0
+region_min_size = 8
+region_merge_size = 20
+edge_max_len = 12.0
+edge_max_error = 1.3
+verts_per_poly = 6.0
+max_simplification_error = 1.3
+
+[node name="TestMap" type="Node3D" node_paths=PackedStringArray("player_spawn_point", "infected_spawn_points", "spawning_monster_spawn_points")]
+script = ExtResource("1_6l700")
+player_spawn_point = NodePath("PlayerSpawnPoint")
+infected_spawn_points = [NodePath("EnemySpawnPoints/InfectedSpawn_1"), NodePath("EnemySpawnPoints/InfectedSpawn_2")]
+spawning_monster_spawn_points = [NodePath("EnemySpawnPoints/SpawningMonsterSpawn_1")]
+
+[node name="MapGeometry" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
+mesh = ExtResource("2_csh7p")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="Wall_1" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 20, -10.5, 2, 0)
+mesh = ExtResource("4_s175y")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="Wall_2" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 20, 10.5, 2, 0)
+mesh = ExtResource("4_s175y")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="Wall_3" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(20, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2, -10.5)
+mesh = ExtResource("4_s175y")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="Wall_4" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(20, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2, 10.5)
+mesh = ExtResource("4_s175y")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="InternalWall_1" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 5, -5.5, 2, 0)
+mesh = ExtResource("4_s175y")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="InternalWall_2" type="MeshInstance3D" parent="MapGeometry"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 2, 5.5)
+mesh = ExtResource("4_s175y")
+surface_material_override/0 = ExtResource("3_0b4m2")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_7j671")
+bake_on_enter_tree = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 10, 0)
+light_color = Color(0.2, 0.2, 0.2, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+omni_range = 10.0
+omni_attenuation = 2.0
+shadow_enabled = true
+
+[node name="PlayerSpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="EnemySpawnPoints" type="Node3D" parent="."]
+
+[node name="InfectedSpawn_1" type="Marker3D" parent="EnemySpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
+
+[node name="InfectedSpawn_2" type="Marker3D" parent="EnemySpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -8)
+
+[node name="SpawningMonsterSpawn_1" type="Marker3D" parent="EnemySpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)

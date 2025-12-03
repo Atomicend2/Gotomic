@@ -1,0 +1,4 @@
+[gd_resource type="AudioStreamBasic" format=3 uid="uid://cs8lq08dclhmg"]
+
+[resource]
+resource_path = "res://Assets/Sounds/placeholder_enemy_damage.wav"
