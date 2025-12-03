@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg2s1cphb57l4"]
+
+[ext_resource type="Script" path="res://environment/door.gd" id="1_24l0k"]
+[ext_resource type="ArrayMesh" uid="uid://e43y0s5o5x0v" path="res://assets/door.obj" id="2_f5y6p"]
+[ext_resource type="Material" uid="uid://ej1p1167h7m0u" path="res://materials/brown.tres" id="3_6d01o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6r1j1"]
+size = Vector3(1, 2, 0.1)
+
+[node name="Door" type="StaticBody3D"]
+collision_mask = 0
+script = ExtResource("1_24l0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_f5y6p")
+surface_material_override/0 = ExtResource("3_6d01o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_6r1j1")

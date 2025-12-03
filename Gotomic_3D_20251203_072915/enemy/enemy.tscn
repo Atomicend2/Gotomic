@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg0s0o23n6o"]
+
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_1wjs5"]
+[ext_resource type="ArrayMesh" uid="uid://h5f0w75u6qj2" path="res://assets/enemy_cube.obj" id="2_c0w3n"]
+[ext_resource type="Material" uid="uid://c6qjicx81w6x2" path="res://materials/red.tres" id="3_70yge"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o3i05"]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j6e80"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7f2s5"]
+material = SubResource("StandardMaterial3D_j6e80")
+
+[node name="Enemy" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_1wjs5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CapsuleShape3D_o3i05")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = ExtResource("2_c0w3n")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_70yge")
+
+[node name="DebugMarker" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.5, -0.5)
+visible = false
+mesh = SubResource("BoxMesh_7f2s5")
+skeleton = NodePath("")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_o3i05")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

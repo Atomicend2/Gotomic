@@ -1,0 +1,56 @@
+# Godot Simple Gun OBJ
+# A very basic representation of a gun (handle, body, barrel)
+
+# Vertices
+v -0.05 0.05 -0.2   # Handle Top Front Left
+v 0.05 0.05 -0.2    # Handle Top Front Right
+v -0.05 -0.15 -0.2  # Handle Bottom Front Left
+v 0.05 -0.15 -0.2   # Handle Bottom Front Right
+v -0.05 0.05 -0.3   # Handle Top Back Left
+v 0.05 0.05 -0.3    # Handle Top Back Right
+v -0.05 -0.15 -0.3  # Handle Bottom Back Left
+v 0.05 -0.15 -0.3   # Handle Bottom Back Right
+
+v -0.05 0.05 -0.15  # Body Front Top Left
+v 0.05 0.05 -0.15   # Body Front Top Right
+v -0.05 0.0  -0.15   # Body Front Bottom Left
+v 0.05 0.0  -0.15    # Body Front Bottom Right
+v -0.05 0.05 -0.05  # Body Back Top Left
+v 0.05 0.05 -0.05   # Body Back Top Right
+v -0.05 0.0  -0.05   # Body Back Bottom Left
+v 0.05 0.0  -0.05    # Body Back Bottom Right
+
+v -0.02 0.02 0.0    # Barrel Front Top Left
+v 0.02 0.02 0.0     # Barrel Front Top Right
+v -0.02 0.0 0.0     # Barrel Front Bottom Left
+v 0.02 0.0 0.0      # Barrel Front Bottom Right
+v -0.02 0.02 -0.05  # Barrel Back Top Left
+v 0.02 0.02 -0.05   # Barrel Back Top Right
+v -0.02 0.0 -0.05   # Barrel Back Bottom Left
+v 0.02 0.0 -0.05    # Barrel Back Bottom Right
+
+
+# Faces (Handle, Body, Barrel - combined)
+# Handle
+f 1 2 4 3
+f 6 5 7 8
+f 5 1 3 7
+f 2 6 8 4
+f 5 6 2 1
+f 3 4 8 7
+
+# Body
+f 9 10 12 11
+f 14 13 15 16
+f 13 9 11 15
+f 10 14 16 12
+f 13 14 10 9
+f 11 12 16 15
+
+# Barrel
+f 17 18 20 19
+f 22 21 23 24
+f 21 17 19 23
+f 18 22 24 20
+f 21 22 18 17
+f 19 20 24 23

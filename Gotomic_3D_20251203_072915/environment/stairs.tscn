@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://chf6t0yq9c73"]
+
+[ext_resource type="ArrayMesh" uid="uid://dypyux517h8b4" path="res://assets/stairs.obj" id="1_hpf2s"]
+[ext_resource type="Material" uid="uid://fk2q1158a9l0w" path="res://materials/dark_brown.tres" id="2_h3qj7"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_v50m4"]
+data = PackedVector3Array(-1, 0.75, 1.5, -1, 0.5, 1.5, 1, 0.5, 1.5, 1, 0.75, 1.5, -1, 0.75, 1, 1, 0.75, 1, 1, 0.5, 1, -1, 0.5, 1, -1, 0.5, 1, 1, 0.5, 1, 1, 0.25, 1, -1, 0.25, 1, -1, 0.5, 0.5, 1, 0.5, 0.5, 1, 0.25, 0.5, -1, 0.25, 0.5, -1, 0.25, 0.5, 1, 0.25, 0.5, 1, 0, 0.5, -1, 0, 0.5, -1, 0.25, 0, 1, 0.25, 0, 1, 0, 0, -1, 0, 0)
+
+[node name="Stairs" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_hpf2s")
+surface_material_override/0 = ExtResource("2_h3qj7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_v50m4")
