@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly.
+
+[application]
+
+config_version=4
+
+name="CandyCrushLike"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/resizable=false
+window/size/mode=2
+window/handheld/orientation=1 ; portrait
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+environment/default_environment="res://default_env.tres"
+
+[debug]
+
+gdscript/warnings/unused_private_class_variable=1
+
