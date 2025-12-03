@@ -1,0 +1,56 @@
+[gd_project load_steps=2 format=4]
+
+[ext_resource type="Script" path="res://scripts/MobileInput.gd" id="1_4q62u"]
+
+[autoload]
+MobileInput="*res://scripts/MobileInput.gd"
+
+[application]
+
+config/name="GotomicMobileGame"
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.5", "mobile")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/mode=2
+window/handheld/orientation=1
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[input_map]
+
+move_forward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"ctrl_pressed":false,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"pressed":false,"keycode":76,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null,"index":0,"position":null,"pressure":0.0,"tilt":null,"pen_inverted":false,"velocity":null,"duration":0.0,"strength":0.0,"raw_keycode":0,"action":"move_forward","emf":null)]
+}
+move_backward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"ctrl_pressed":false,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"pressed":false,"keycode":77,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null,"index":0,"position":null,"pressure":0.0,"tilt":null,"pen_inverted":false,"velocity":null,"duration":0.0,"strength":0.0,"raw_keycode":0,"action":"move_backward","emf":null)]
+}
+move_left={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"ctrl_pressed":false,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"pressed":false,"keycode":74,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null,"index":0,"position":null,"pressure":0.0,"tilt":null,"pen_inverted":false,"velocity":null,"duration":0.0,"strength":0.0,"raw_keycode":0,"action":"move_left","emf":null)]
+}
+move_right={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"ctrl_pressed":false,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"pressed":false,"keycode":75,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null,"index":0,"position":null,"pressure":0.0,"tilt":null,"pen_inverted":false,"velocity":null,"duration":0.0,"strength":0.0,"raw_keycode":0,"action":"move_right","emf":null)]
+}
+jump={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"ctrl_pressed":false,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"pressed":false,"keycode":89,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null,"index":0,"position":null,"pressure":0.0,"tilt":null,"pen_inverted":false,"velocity":null,"duration":0.0,"strength":0.0,"raw_keycode":0,"action":"jump","emf":null)]
+}
+attack={
+"deadzone": 0.5,
+"events": [Object(InputEventMouse,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"ctrl_pressed":false,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"pressed":false,"button_index":1,"button_mask":0,"double_click":false,"factor":1.0,"script":null,"index":0,"position":null,"global_position":null,"pressure":0.0,"tilt":null,"pen_inverted":false,"velocity":null,"duration":0.0,"strength":0.0,"emf":null)]
+}
+
+[rendering]
+
+renderer/rendering_method="compatibility"
+anti_aliasing/quality="disabled"

@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://b00g4u4k10w4d"]
+
+[ext_resource type="Script" path="res://scripts/PlayerController.gd" id="1_4n57r"]
+[ext_resource type="ArrayMesh" uid="uid://c6s75f3a1fks7" path="res://models/player_cube.obj" id="2_e7f2l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52y41"]
+albedo_color = Color(0.635294, 0.0627451, 0.635294, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u5e0k"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5a72o"]
+radius = 0.5
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_4n57r")
+speed = 5.0
+jump_velocity = 8.0
+acceleration_strength = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_52y41")
+mesh = ExtResource("2_e7f2l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_u5e0k")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 3.5)
+current = true
+fov = 70.0
+
+[node name="HeadCollisionChecker" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HeadCollisionChecker"]
+shape = SubResource("SphereShape3D_5a72o")
+
+[node name="FootCollisionChecker" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FootCollisionChecker"]
+shape = SubResource("SphereShape3D_5a72o")

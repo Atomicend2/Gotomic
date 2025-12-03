@@ -1,0 +1,191 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuf7s4q3m77s4"]
+
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="1_4n28f"]
+
+[sub_resource type="Theme" id="Theme_o588s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q410"]
+bg_color = Color(0, 0, 0, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oim26"]
+bg_color = Color(0.2, 0.2, 0.2, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4n28f")
+theme = SubResource("Theme_o588s")
+
+[node name="MovementPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -220.0
+offset_right = 220.0
+offset_bottom = -20.0
+grow_vertical = 0
+
+[node name="UpButton" type="TouchScreenButton" parent="MovementPanel"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 0.0
+offset_right = 125.0
+offset_bottom = 50.0
+focus_mode = 0
+normal = SubResource("StyleBoxFlat_0q410")
+pressed = SubResource("StyleBoxFlat_oim26")
+action = "move_forward"
+pass_on_drag = true
+
+[node name="Label" type="Label" parent="MovementPanel/UpButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "↑"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DownButton" type="TouchScreenButton" parent="MovementPanel"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 150.0
+offset_right = 125.0
+offset_bottom = 200.0
+focus_mode = 0
+normal = SubResource("StyleBoxFlat_0q410")
+pressed = SubResource("StyleBoxFlat_oim26")
+action = "move_backward"
+pass_on_drag = true
+
+[node name="Label" type="Label" parent="MovementPanel/DownButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "↓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftButton" type="TouchScreenButton" parent="MovementPanel"]
+layout_mode = 0
+offset_top = 75.0
+offset_right = 50.0
+offset_bottom = 125.0
+focus_mode = 0
+normal = SubResource("StyleBoxFlat_0q410")
+pressed = SubResource("StyleBoxFlat_oim26")
+action = "move_left"
+pass_on_drag = true
+
+[node name="Label" type="Label" parent="MovementPanel/LeftButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "←"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightButton" type="TouchScreenButton" parent="MovementPanel"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 75.0
+offset_right = 200.0
+offset_bottom = 125.0
+focus_mode = 0
+normal = SubResource("StyleBoxFlat_0q410")
+pressed = SubResource("StyleBoxFlat_oim26")
+action = "move_right"
+pass_on_drag = true
+
+[node name="Label" type="Label" parent="MovementPanel/RightButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "→"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActionPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -220.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="JumpButton" type="TouchScreenButton" parent="ActionPanel"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 75.0
+offset_right = 125.0
+offset_bottom = 125.0
+focus_mode = 0
+normal = SubResource("StyleBoxFlat_0q410")
+pressed = SubResource("StyleBoxFlat_oim26")
+action = "jump"
+pass_on_drag = true
+
+[node name="Label" type="Label" parent="ActionPanel/JumpButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackButton" type="TouchScreenButton" parent="ActionPanel"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 0.0
+offset_right = 170.0
+offset_bottom = 50.0
+focus_mode = 0
+normal = SubResource("StyleBoxFlat_0q410")
+pressed = SubResource("StyleBoxFlat_oim26")
+action = "attack"
+pass_on_drag = true
+
+[node name="Label" type="Label" parent="ActionPanel/AttackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1

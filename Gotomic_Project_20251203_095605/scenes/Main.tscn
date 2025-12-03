@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx6g3k7r413t"]
+
+[ext_resource type="PackedScene" uid="uid://b00g4u4k10w4d" path="res://scenes/Player.tscn" id="1_v4l5a"]
+[ext_resource type="PackedScene" uid="uid://cuf7s4q3m77s4" path="res://ui/HUD.tscn" id="2_cxb7l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y5333"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k70gb"]
+albedo_color = Color(0.184314, 0.407843, 0.207843, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.433013, -0.25, -0.5, 0.866025, 0, 0, -0.25, -0.965926, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_v4l5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_y5333")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_k70gb")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor/MeshInstance3D"]
+size = Vector3(40, 1, 40)
+
+[node name="HUD" parent="." instance=ExtResource("2_cxb7l")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
