@@ -1,0 +1,134 @@
+[gd_scene load_steps=5 format=3 uid="uid://c077y4yv5f3g4"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_47l8d"]
+[ext_resource type="FontFile" uid="uid://b23x83k07d81a" path="res://assets/fonts/Xolonium-Regular.ttf" id="2_c0v2c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w2r2"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oogte"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_47l8d")
+
+[node name="HealthLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("2_c0v2c")
+theme_override_font_sizes/font_size = 30
+text = "HP: 100"
+
+[node name="AmmoLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_c0v2c")
+theme_override_font_sizes/font_size = 30
+text = "Ammo: 30/30"
+horizontal_alignment = 2
+
+[node name="ObjectiveLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 20.0
+offset_right = 300.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_c0v2c")
+theme_override_font_sizes/font_size = 24
+text = "Eliminate all enemies: 0/0"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TouchscreenControls" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoveJoystickBase" type="Panel" parent="TouchscreenControls"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 500.0
+offset_right = 200.0
+offset_bottom = 650.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0w2r2")
+
+[node name="MoveJoystickHandle" type="Panel" parent="TouchscreenControls"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 550.0
+offset_right = 150.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oogte")
+
+[node name="FireButton" type="Button" parent="TouchscreenControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -180.0
+offset_right = -100.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_c0v2c")
+theme_override_font_sizes/font_size = 30
+text = "FIRE"
+
+[node name="JumpButton" type="Button" parent="TouchscreenControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -300.0
+offset_right = -20.0
+offset_bottom = -220.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_c0v2c")
+theme_override_font_sizes/font_size = 24
+text = "JUMP"
+
+[connection signal="pressed" from="TouchscreenControls/FireButton" to="." method="_on_fire_button_pressed"]
+[connection signal="released" from="TouchscreenControls/FireButton" to="." method="_on_fire_button_released"]
+[connection signal="pressed" from="TouchscreenControls/JumpButton" to="." method="_on_jump_button_pressed"]
+

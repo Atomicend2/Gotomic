@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg0s0o5u6v72q"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_4n57t"]
+[ext_resource type="StandardMaterial3D" uid="uid://c6qg5a0x67l3m" path="res://assets/materials/enemy_material.tres" id="2_j0b5v"]
+[ext_resource type="PackedScene" uid="uid://csn8w31j400o5" path="res://scenes/bullet.tscn" id="3_7f6u7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k58y1"]
+material = ExtResource("2_j0b5v")
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c7m0h"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxlve"]
+albedo_color = Color(0.180392, 0.490196, 0.960784, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_c020k"]
+material = SubResource("StandardMaterial3D_lxlve")
+radius = 0.1
+height = 0.2
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4n57t")
+bullet_scene = ExtResource("3_7f6u7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_k58y1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_c7m0h")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0, -20)
+collision_mask = 1
+
+[node name="WeaponMuzzle" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="WeaponVisual" type="MeshInstance3D" parent="Head/WeaponMuzzle"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_c020k")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+radius = 0.4
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
+

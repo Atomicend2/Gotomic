@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://dj32u56oox861"]
+
+[ext_resource type="PackedScene" uid="uid://dj0g4q462iuf4" path="res://scenes/player.tscn" id="1_4t72r"]
+[ext_resource type="PackedScene" uid="uid://c077y4yv5f3g4" path="res://scenes/hud.tscn" id="2_4k40c"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="3_vj754"]
+[ext_resource type="StandardMaterial3D" uid="uid://df7w8y1f4xih3" path="res://assets/materials/ground_material.tres" id="4_v722r"]
+[ext_resource type="StandardMaterial3D" uid="uid://dtf10114t5y8j" path="res://assets/materials/wall_material.tres" id="5_y7oix"]
+[ext_resource type="PackedScene" uid="uid://dg0s0o5u6v72q" path="res://scenes/enemy.tscn" id="6_i5x0j"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_a9657"]
+
+[node name="Level" type="Node3D"]
+script = ExtResource("3_vj754")
+enemy_scene = ExtResource("6_i5x0j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_a9657")
+
+[node name="Ground" type="MeshInstance3D" parent="NavigationRegion3D"]
+mesh = null
+skeleton = NodePath("")
+
+[node name="Floor" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
+material_override = ExtResource("4_v722r")
+mesh = null
+
+[node name="BoxMesh_Floor" type="CSGBox3D" parent="NavigationRegion3D/Ground/Floor"]
+size = Vector3(1, 1, 1)
+
+[node name="Walls" type="MeshInstance3D" parent="NavigationRegion3D"]
+mesh = null
+skeleton = NodePath("")
+
+[node name="Wall1" type="CSGBox3D" parent="NavigationRegion3D/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 2.5, 0)
+material_override = ExtResource("5_y7oix")
+size = Vector3(1, 5, 20)
+
+[node name="Wall2" type="CSGBox3D" parent="NavigationRegion3D/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 2.5, 0)
+material_override = ExtResource("5_y7oix")
+size = Vector3(1, 5, 20)
+
+[node name="Wall3" type="CSGBox3D" parent="NavigationRegion3D/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -10.5)
+material_override = ExtResource("5_y7oix")
+size = Vector3(20, 5, 1)
+
+[node name="Wall4" type="CSGBox3D" parent="NavigationRegion3D/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 10.5)
+material_override = ExtResource("5_y7oix")
+size = Vector3(20, 5, 1)
+
+[node name="Obstacle1" type="CSGBox3D" parent="NavigationRegion3D/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, -5)
+material_override = ExtResource("5_y7oix")
+size = Vector3(3, 3, 3)
+
+[node name="Obstacle2" type="CSGBox3D" parent="NavigationRegion3D/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 5)
+material_override = ExtResource("5_y7oix")
+size = Vector3(3, 3, 3)
+
+[node name="PlayerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="Player" parent="PlayerSpawn" instance=ExtResource("1_4t72r")]
+
+[node name="EnemySpawns" type="Node3D" parent="."]
+
+[node name="EnemySpawn1" type="Node3D" parent="EnemySpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
+
+[node name="EnemySpawn2" type="Node3D" parent="EnemySpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -8)
+
+[node name="EnemySpawn3" type="Node3D" parent="EnemySpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -8)
+
+[node name="EnemySpawn4" type="Node3D" parent="EnemySpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 8)
+
+[node name="HUD" parent="." instance=ExtResource("2_4k40c")]
+

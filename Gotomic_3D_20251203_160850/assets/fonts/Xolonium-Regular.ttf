@@ -1,0 +1,10 @@
+[gd_resource type="FontFile" format=3 uid="uid://b23x83k07d81a"]
+
+[resource]
+resource_path = "res://assets/fonts/Xolonium-Regular.ttf"
+
+# (Binary data for Xolonium-Regular.ttf would go here. For a generated project,
+# I typically assume fonts are provided or use a placeholder path.)
+# This file is too large to embed as plain text. In a real generation, this would be a binary blob.
+# For demonstration purposes, I will represent it as a path and assume it's available.
+
