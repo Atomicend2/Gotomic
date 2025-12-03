@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://cufub54a3v30e"]
+
+[ext_resource type="Script" path="res://scripts/global/game_manager.gd" id="1_2a677"]
+[ext_resource type="PackedScene" uid="uid://cd5p12c2288q3" path="res://scenes/Player.tscn" id="2_c038g"]
+[ext_resource type="PackedScene" uid="uid://dpsl0kpp85l84" path="res://scenes/ui/UIManager.tscn" id="3_61t2f"]
+[ext_resource type="ArrayMesh" path="res://models/plane.obj" id="4_58s5y"]
+[ext_resource type="ArrayMesh" path="res://models/cube.obj" id="5_8c41w"]
+[ext_resource type="PackedScene" uid="uid://dlh4yv8430o0l" path="res://scenes/prefabs/PhysicsObject.tscn" id="6_s8k2p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p3x05"]
+albedo_color = Color(0.1, 0.4, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6r1j1"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8q155"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_2a677")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 10, 0)
+shadow_enabled = true
+shadow_bias = 0.1
+shadow_normal_bias = 0.5
+shadow_blur = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = uid("uid://d37k3y7l2c0qj")
+
+[node name="Player" parent="." instance=ExtResource("2_c038g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="UIManager" parent="." instance=ExtResource("3_61t2f")]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = ExtResource("4_58s5y")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_p3x05")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_6r1j1")
+
+[node name="Wall1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = ExtResource("5_8c41w")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_8q155")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1"]
+shape = SubResource("BoxShape3D_6r1j1")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = ExtResource("5_8c41w")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_8q155")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_6r1j1")
+
+[node name="PhysicsObjectsContainer" type="Node3D" parent="."]
+
+[node name="PhysicsObject1" parent="PhysicsObjectsContainer" instance=ExtResource("6_s8k2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+base_mass = 1.0
+material_color = Color(1, 0, 0, 1)
+
+[node name="PhysicsObject2" parent="PhysicsObjectsContainer" instance=ExtResource("6_s8k2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, -3)
+base_mass = 2.0
+base_bounciness = 0.8
+material_color = Color(0, 1, 0, 1)
+
+[node name="PhysicsObject3" parent="PhysicsObjectsContainer" instance=ExtResource("6_s8k2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 3, -3)
+base_mass = 0.5
+material_color = Color(0, 0, 1, 1)
+
+[node name="PhysicsObject4" parent="PhysicsObjectsContainer" instance=ExtResource("6_s8k2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -3)
+base_mass = 1.5
+material_color = Color(1, 1, 0, 1)

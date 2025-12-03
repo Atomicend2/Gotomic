@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlh4yv8430o0l"]
+
+[ext_resource type="Script" path="res://scripts/physics_object.gd" id="1_4752c"]
+[ext_resource type="ArrayMesh" path="res://models/cube.obj" id="2_2t21l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10n4c"]
+albedo_color = Color(0.8, 0.5, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_23e51"]
+
+[node name="PhysicsObject" type="RigidBody3D"]
+collision_layer = 1
+collision_mask = 1
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource("1_4752c")
+base_mass = 1.0
+base_bounciness = 0.5
+material_color = Color(0.8, 0.5, 0.2, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_2t21l")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_10n4c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_23e51")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

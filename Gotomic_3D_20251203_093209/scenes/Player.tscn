@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://cd5p12c2288q3"]
+
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_qj0f5"]
+[ext_resource type="ArrayMesh" path="res://models/cube.obj" id="2_a81l7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n2l8d"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_838r3"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k4b4h"]
+material = SubResource("StandardMaterial3D_838r3")
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d4h2v"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_klydn"]
+material = SubResource("StandardMaterial3D_d4h2v")
+size = Vector3(0.5, 0.5, 1.5)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_qj0f5")
+move_speed = 5.0
+jump_velocity = 4.5
+mouse_sensitivity = 0.002
+ray_shoot_power = 50.0
+ray_max_distance = 100.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_n2l8d")
+
+[node name="PlayerBodyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_k4b4h")
+skeleton = NodePath("")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+fov = 75.0
+near = 0.1
+far = 500.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 1
+
+[node name="ShootAudio" type="AudioStreamPlayer3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, -0.5)
+unit_size = 2.0
+max_db = 0.0
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, -0.8)
+mesh = SubResource("BoxMesh_klydn")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_d4h2v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
