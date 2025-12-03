@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly.
+
+config_version=4
+
+[application]
+
+config/name="Gotomic Mobile FPS"
+run/main_scene="res://scenes/main/Main.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=2
+window/handheld/orientation=1
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[input]
+
+move_forward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":87,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+move_backward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":83,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+move_left={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":65,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+move_right={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":68,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+jump={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":32,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+crouch={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":40,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+sprint={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":82,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":16777232,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+fire={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":true,"double_click":false,"command_or_control_at_time":false)]}
+aim={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":true,"double_click":false,"command_or_control_at_time":false)]}
+reload={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":82,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":70,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":false,"is_released":true,"pressed_percentage":0.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0)), Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":true,"keycode":80,"physical_keycode":0,"mod_command":false,"mod_shift":false,"mod_alt":false,"mod_meta":false,"ctrl_or_cmd":false,"alt_or_cmd":false,"shift_or_cmd":false,"is_echo":false,"is_pressed":true,"is_released":false,"pressed_percentage":1.0,"position_in_window":Vector2(0, 0),"global_position":Vector2(0, 0),"velocity":Vector2(0, 0))]}
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.2, 0.2, 0.25, 1)
+

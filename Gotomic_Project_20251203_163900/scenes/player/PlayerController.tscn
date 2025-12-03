@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://de2o3s630s2b"]
+
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_x8d0f"]
+[ext_resource type="Material" uid="uid://de412fkgp5fka" path="res://assets/materials/player_material.tres" id="2_5l8yq"]
+[ext_resource type="Script" path="res://scripts/utils/health_component.gd" id="3_a77m3"]
+[ext_resource type="PackedScene" uid="uid://cfk1vj2t4r6f6" path="res://scenes/weapons/AK47.tscn" id="4_s5w57"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_717t0"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b240l"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1670j"]
+albedo_color = Color(0.8, 0.8, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_30i0h"]
+size = Vector3(0.1, 0.1, 0.5)
+
+[sub_resource type="AnimationPlayer" id="AnimationPlayer_84m44"]
+libraries = {
+"": null
+}
+
+[node name="PlayerController" type="CharacterBody3D" groups=["player"]]
+collision_layer = 1
+collision_mask = 3
+script = ExtResource("1_x8d0f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_717t0")
+surface_material_override/0 = ExtResource("2_5l8yq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_b240l")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_a77m3")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+
+[node name="WeaponAnchor" type="Node3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -0.4)
+
+[node name="AK47" parent="Head/Camera3D/WeaponAnchor" instance=ExtResource("4_s5w57")]
+
+[node name="DebugAimDot" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false
+material_override = SubResource("StandardMaterial3D_1670j")
+mesh = SubResource("BoxMesh_30i0h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationPlayer_84m44")
+}
+

@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://cfk1vj2t4r6f6"]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon.gd" id="1_4t0vj"]
+[ext_resource type="Material" uid="uid://clx5k31w7s0a6" path="res://assets/materials/weapon_material.tres" id="2_h3qg8"]
+[ext_resource type="Resource" uid="uid://c1t46i36v2020" path="res://scenes/weapons/recoil_pattern_ak47.tres" id="3_6j18c"]
+[ext_resource type="AudioStream" uid="uid://chvj1o2n4vts7" path="res://assets/audio/gunshot.ogg" id="4_s57r4"]
+[ext_resource type="AudioStream" uid="uid://cf282kcnb5tgs" path="res://assets/audio/reload.ogg" id="5_85oah"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6315v"]
+size = Vector3(0.1, 0.1, 0.8)
+
+[sub_resource type="SphereMesh" id="SphereMesh_c244b"]
+radius = 0.02
+height = 0.04
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4mxa"]
+_data = {
+"aim_in": {
+"blend_mode": 0,
+"loop_mode": 0,
+"name": "aim_in",
+"speed": 1.0,
+"tracks/0/type": "value",
+"tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath(".:position"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08, -0.08, -0.2)]
+}
+},
+"aim_out": {
+"blend_mode": 0,
+"loop_mode": 0,
+"name": "aim_out",
+"speed": 1.0,
+"tracks/0/type": "value",
+"tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath(".:position"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.08, -0.08, -0.2), Vector3(0, 0, 0)]
+}
+},
+"fire": {
+"blend_mode": 0,
+"loop_mode": 0,
+"name": "fire",
+"speed": 1.0,
+"tracks/0/type": "value",
+"tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath(".:position"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.05), Vector3(0, 0, 0)]
+}
+},
+"reload": {
+"blend_mode": 0,
+"loop_mode": 0,
+"name": "reload",
+"speed": 1.0,
+"tracks/0/type": "value",
+"tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath(".:position"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.1, -0.2, 0), Vector3(0.1, -0.2, 0), Vector3(0, 0, 0)]
+}
+}
+}
+
+[node name="AK47" type="Node3D"]
+script = ExtResource("1_4t0vj")
+weapon_name = "AK-47"
+fire_rate_per_minute = 600
+magazine_size = 30
+reserve_ammo = 120
+reload_time = 2.5
+recoil_pattern = ExtResource("3_6j18c")
+fire_sound = ExtResource("4_s57r4")
+reload_sound = ExtResource("5_85oah")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+mesh = SubResource("BoxMesh_6315v")
+surface_material_override/0 = ExtResource("2_h3qg8")
+
+[node name="BulletRayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+
+[node name="FireAudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_s57r4")
+bus = &"SFX"
+
+[node name="ReloadAudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_85oah")
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e4mxa")
+}
+
+[node name="MuzzleFlash" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+visible = false
+mesh = SubResource("SphereMesh_c244b")
+skeleton = NodePath("../..")
+

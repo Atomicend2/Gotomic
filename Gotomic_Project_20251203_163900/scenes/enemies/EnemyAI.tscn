@@ -1,0 +1,156 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4n674a2v0jrt"]
+
+[ext_resource type="Script" path="res://scripts/enemies/enemy_ai.gd" id="1_y4o4a"]
+[ext_resource type="Material" uid="uid://cb3p24y482k3k" path="res://assets/materials/enemy_material.tres" id="2_2o406"]
+[ext_resource type="Script" path="res://scripts/utils/health_component.gd" id="3_702v7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_717t0"]
+radius = 0.4
+height = 1.9
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b240l"]
+radius = 0.4
+height = 1.9
+
+[sub_resource type="Animation" id="Animation_7h6w8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path": NodePath("MeshInstance3D:translation"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.95, 0)]
+}
+}
+
+[sub_resource type="Animation" id="Animation_y0xhm"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath("MeshInstance3D:translation"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.95, 0), Vector3(0, 0.95, -0.2), Vector3(0, 0.95, 0)]
+}
+}
+
+[sub_resource type="Animation" id="Animation_k05gq"]
+resource_name = "die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath("MeshInstance3D:translation"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.95, 0), Vector3(0, 0.2, 0)]
+}
+}
+
+[sub_resource type="Animation" id="Animation_j03c1"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath("MeshInstance3D:translation"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.95, 0), Vector3(0, 0.97, 0), Vector3(0, 0.95, 0)]
+}
+}
+
+[sub_resource type="Animation" id="Animation_k0s2j"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported": false,
+"tracks/0/enabled": true,
+"tracks/0/path": NodePath("MeshInstance3D:translation"),
+"tracks/0/interp": 1,
+"tracks/0/loop_wrap": true,
+"tracks/0/keys": {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.95, 0), Vector3(0, 0.92, 0), Vector3(0, 0.95, 0), Vector3(0, 0.92, 0), Vector3(0, 0.95, 0)]
+}
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4mxa"]
+_data = {
+"RESET": SubResource("Animation_7h6w8"),
+"attack": SubResource("Animation_y0xhm"),
+"die": SubResource("Animation_k05gq"),
+"idle": SubResource("Animation_j03c1"),
+"walk": SubResource("Animation_k0s2j")
+}
+
+[node name="EnemyAI" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_y4o4a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+mesh = SubResource("CapsuleMesh_717t0")
+surface_material_override/0 = ExtResource("2_2o406")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_b240l")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_702v7")
+max_health = 50
+_health = 50
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 1.0
+target_desired_distance = 1.0
+path_desired_distance = 0.5
+avoidance_enabled = true
+neighbor_distance = 1.0
+max_neighbors = 8
+time_horizon = 0.5
+radius = 0.4
+max_speed = 6.0
+debug_enabled = true
+debug_path_custom_color = Color(1, 0.5, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e4mxa")
+}
+
+[node name="RayCastPlayerCheck" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
+collision_mask = 1
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PatrolWaitTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
