@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpp37j03d6d58"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyAI.gd" id="1_801t4"]
+[ext_resource type="ArrayMesh" uid="uid://67i6i7d4b46c" path="res://Assets/Models/security_drone_placeholder.obj" id="2_l4rnx"]
+[ext_resource type="AudioStreamWAV" uid="uid://cx68n60b1v3i6" path="res://Assets/Sounds/audio_stream_empty.tres" id="3_61d12"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o3u4d"]
+radius = 0.5
+height = 1.5
+
+[sub_resource type="Animation" id="Animation_r850r"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.5), Vector3(0, 0, 0)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackAudioPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"stream": ExtResource("3_61d12"),
+"start_offset": 0.0,
+"end_offset": 0.0,
+"volume": 0.0
+}
+
+[sub_resource type="Animation" id="Animation_4k0g7"]
+resource_name = "death"
+length = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model/MeshInstance3D:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 90)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathAudioPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"stream": ExtResource("3_61d12"),
+"start_offset": 0.0,
+"end_offset": 0.0,
+"volume": 0.0
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4m63"]
+_data = {
+"attack": SubResource("Animation_r850r"),
+"death": SubResource("Animation_4k0g7")
+}
+
+[node name="SecurityDrone" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_801t4")
+max_health = 30
+damage_on_hit = 5
+model_path = ExtResource("2_l4rnx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_o3u4d")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+radius = 0.5
+debug_enabled = true
+avoidance_enabled = false
+keep_y_velocity = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e4m63")
+}
+
+[node name="LineOfSightRayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -10)
+collision_mask = 7
+hit_from_inside = true
+
+[node name="AttackAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_61d12")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="DeathAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_61d12")
+volume_db = -5.0
+bus = &"SFX"

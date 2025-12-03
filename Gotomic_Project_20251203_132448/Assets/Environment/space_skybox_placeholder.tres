@@ -1,0 +1,14 @@
+[gd_resource type="Texture2D" load_steps=1 format=3 uid="uid://dmh4u70wtx37j"]
+
+[resource]
+resource_name = "SpaceSkyboxPlaceholder"
+width = 1
+height = 1
+resource_local_to_scene = true
+format = 1
+_data = {
+"data": PackedByteArray(1, 1, 1, 1),
+"height": 1,
+"mipmaps": false,
+"width": 1
+}

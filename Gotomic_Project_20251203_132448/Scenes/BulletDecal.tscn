@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://drj57v5h8i2t"]
+
+[ext_resource type="ArrayMesh" uid="uid://dv7k1xgl57g7h" path="res://Assets/Models/plane_placeholder.obj" id="1_447h1"]
+[ext_resource type="Material" uid="uid://ctk7r832b85d3" path="res://FX/Decals/bullet_decal.tres" id="2_cix5l"]
+
+[node name="BulletDecal" type="MeshInstance3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.001, 0, 0, 0)
+mesh = ExtResource("1_447h1")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_cix5l")

@@ -1,0 +1,228 @@
+[gd_scene load_steps=3 format=3 uid="uid://crf5s806d2d46"]
+
+[ext_resource type="Script" path="res://Scripts/UI/HUD.gd" id="1_w5i34"]
+[ext_resource type="Theme" uid="uid://cg2n8e45mkkj6" path="res://Assets/Themes/default_theme.tres" id="2_2t71l"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_w5i34")
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2t71l")
+
+[node name="HealthBar" type="ProgressBar" parent="Container"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 75.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="Container/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HEALTH: 75/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoCounter" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "LASER RIFLE: 30/30"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StaminaBar" type="ProgressBar" parent="Container"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -90.0
+offset_right = -20.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 50.0
+show_percentage = false
+fill_mode = 0
+
+[node name="Crosshair" type="Control" parent="Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterDot" type="ColorRect" parent="Container/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="LineH1" type="ColorRect" parent="Container/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -1.0
+offset_right = -5.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="LineH2" type="ColorRect" parent="Container/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -1.0
+offset_right = 20.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="LineV1" type="ColorRect" parent="Container/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -20.0
+offset_right = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="LineV2" type="ColorRect" parent="Container/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = 5.0
+offset_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="TouchControls" type="Control" parent="Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JoystickMove" type="TouchScreenButton" parent="Container/TouchControls"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(120, 520)
+scale = Vector2(1.5, 1.5)
+normal_texture = null
+pressed_texture = null
+action = "move"
+visibility_mode = 1
+passby_press = true
+
+[node name="JoystickLook" type="TouchScreenButton" parent="Container/TouchControls"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(900, 520)
+scale = Vector2(1.5, 1.5)
+normal_texture = null
+pressed_texture = null
+action = "look"
+visibility_mode = 1
+passby_press = true
+
+[node name="BtnFire" type="TouchScreenButton" parent="Container/TouchControls"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(950, 400)
+scale = Vector2(0.8, 0.8)
+normal_texture = null
+pressed_texture = null
+action = "fire"
+visibility_mode = 1
+
+[node name="BtnReload" type="TouchScreenButton" parent="Container/TouchControls"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(850, 400)
+scale = Vector2(0.6, 0.6)
+normal_texture = null
+pressed_texture = null
+action = "reload"
+visibility_mode = 1
+
+[node name="BtnADS" type="TouchScreenButton" parent="Container/TouchControls"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(950, 300)
+scale = Vector2(0.6, 0.6)
+normal_texture = null
+pressed_texture = null
+action = "aim"
+visibility_mode = 1
+
+[node name="BtnSprint" type="TouchScreenButton" parent="Container/TouchControls"]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(150, 420)
+scale = Vector2(0.6, 0.6)
+normal_texture = null
+pressed_texture = null
+action = "sprint"
+visibility_mode = 1

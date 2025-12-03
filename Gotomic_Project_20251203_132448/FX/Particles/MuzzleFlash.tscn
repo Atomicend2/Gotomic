@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsg2q3r5gshf7"]
+
+[ext_resource type="Script" path="res://Scripts/FX/muzzle_flash.gd" id="1_dxfv3"]
+[ext_resource type="Material" uid="uid://cjkhw034m1w72" path="res://FX/Particles/bullet_impact.tres" id="2_7646x"]
+
+[node name="MuzzleFlash" type="CPUParticles3D"]
+cast_shadow = 0
+extra_cull_margin = 100.0
+material_override = ExtResource("2_7646x")
+emitting = false
+amount = 8
+lifetime = 0.1
+one_shot = true
+preprocess = 0.05
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 0.5
+local_coords = true
+emission_shape = 3
+emission_box_extents = Vector3(0.1, 0.1, 0.1)
+direction = Vector3(0, 0, -1)
+spread = 20.0
+flatness = 0.5
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+damping_max = 2.0
+scale_amount_min = 0.2
+scale_amount_max = 0.5
+color = Color(1, 0.6, 0.2, 1)
+color_initial_ramp = 0.2
+script = ExtResource("1_dxfv3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

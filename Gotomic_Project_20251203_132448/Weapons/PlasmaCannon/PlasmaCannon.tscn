@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://cp66l314o51t5"]
+
+[ext_resource type="Script" path="res://Scripts/Weapon.gd" id="1_24151"]
+[ext_resource type="ArrayMesh" uid="uid://d3x8y7oagq3b2" path="res://Assets/Models/station_wall_placeholder.obj" id="2_4k47s"]
+[ext_resource type="ArrayMesh" uid="uid://b3vj11666u448" path="res://Assets/Models/gun_barrel_placeholder.obj" id="3_61t1x"]
+[ext_resource type="ArrayMesh" uid="uid://dp71a0676a08n" path="res://Assets/Models/gun_body_placeholder.obj" id="4_v722q"]
+[ext_resource type="PackedScene" uid="uid://dsg2q3r5gshf7" path="res://FX/Particles/MuzzleFlash.tscn" id="5_85o25"]
+[ext_resource type="Material" uid="uid://c6488d7m8w2b3" path="res://Weapons/PlasmaCannon/plasma_projectile.tres" id="6_1m331"]
+
+[sub_resource type="Animation" id="Animation_y7i5c"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GunBody:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.02, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e5dgw"]
+_data = {
+"idle": SubResource("Animation_y7i5c")
+}
+
+[node name="PlasmaCannon" type="Node3D"]
+script = ExtResource("1_24151")
+weapon_name = "Plasma Cannon"
+damage = 40
+fire_rate = 0.5
+magazine_size = 8
+reload_time = 3.0
+recoil_pattern = {
+"recover_time": 0.3,
+"recoil_duration": 0.15,
+"recoil_x": 0.2,
+"recoil_y": 0.4
+}
+spread_increase = 0.1
+fire_mode = 0
+
+[node name="GunBody" type="MeshInstance3D" parent="."]
+mesh = ExtResource("4_v722q")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("6_1m331")
+
+[node name="GunBarrel" type="MeshInstance3D" parent="GunBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+mesh = ExtResource("3_61t1x")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("6_1m331")
+
+[node name="MuzzleFlash" parent="GunBody/GunBarrel" instance=ExtResource("5_85o25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="ADS_Offset" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, -0.1, -0.6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e5dgw")
+}
+
+[node name="BulletOrigin" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)
+mesh = ExtResource("2_4k47s")
+skeleton = NodePath("")

@@ -1,0 +1,33 @@
+[gd_resource type="WorldEnvironment" load_steps=2 format=3 uid="uid://c6y775e74s31q"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_x8k2w"]
+sky_panorama = preload("res://Assets/Environment/space_skybox_placeholder.tres")
+
+[sub_resource type="Sky" id="Sky_41c0e"]
+sky_material = SubResource("PanoramaSkyMaterial_x8k2w")
+
+[resource]
+background_mode = 2
+background_sky = SubResource("Sky_41c0e")
+ambient_light_source = 3
+ambient_light_color = Color(0.1, 0.1, 0.1, 1)
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+tonemap_exposure = 1.2
+tonemap_white = 1.2
+ssao_enabled = true
+ssao_ao_channel_direct_light = 0.0
+ssao_color = Color(0, 0, 0, 1)
+ssao_intensity = 0.7
+ssao_radius = 2.0
+ssao_bias = 0.0
+ssao_quality = 2
+ssao_fadeout_from = 50.0
+ssao_fadeout_to = 100.0
+fog_enabled = true
+fog_light_color = Color(0, 0.06, 0.1, 1)
+fog_light_energy = 0.0
+fog_density = 0.005
+fog_height = 0.0
+fog_height_curve = 0.0
+fog_sun_scatter = 0.0

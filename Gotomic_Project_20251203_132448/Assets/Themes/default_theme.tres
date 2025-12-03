@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cg2n8e45mkkj6"]
+
+[sub_resource type="SystemFont" id="SystemFont_f07l8"]
+font_names = PackedStringArray("JetBrains Mono")
+font_italic = false
+font_bold = false
+
+[resource]
+resource_name = "DefaultTheme"
+default_font = SubResource("SystemFont_f07l8")
+default_font_size = 18

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj1k1a0kpln54"]
+
+[ext_resource type="PackedScene" uid="uid://bsh2s0117x5g8" path="res://Maps/SpaceStation/SpaceStation.tscn" id="1_104h0"]
+[ext_resource type="PackedScene" uid="uid://c66h16u0v8k3f" path="res://Scenes/Player.tscn" id="2_c777e"]
+[ext_resource type="PackedScene" uid="uid://dpp37j03d6d58" path="res://Scenes/Enemy.tscn" id="3_vj77y"]
+[ext_resource type="PackedScene" uid="uid://crf5s806d2d46" path="res://UI/HUD/HUD.tscn" id="4_s28m0"]
+
+[node name="GameWorld" type="Node3D"]
+
+[node name="SpaceStation" parent="." instance=ExtResource("1_104h0")]
+
+[node name="Player" parent="." instance=ExtResource("2_c777e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -7)
+
+[node name="SecurityDrone_1" parent="." instance=ExtResource("3_vj77y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 5)
+
+[node name="SecurityDrone_2" parent="." instance=ExtResource("3_vj77y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 5)
+
+[node name="HUD" parent="." instance=ExtResource("4_s28m0")]
