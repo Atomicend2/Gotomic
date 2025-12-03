@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlh485b0hly7m"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_020dn"]
+[ext_resource type="Material" uid="uid://c53k1n24h76v8" path="res://assets/material_player.tres" id="2_t4w2b"]
+[ext_resource type="ArrayMesh" uid="uid://b00g45p4168c7" path="res://assets/player_box.obj" id="3_f63d4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2j420"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_n273o"]
+radius = 0.25
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_020dn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_f63d4")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_t4w2b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_2j420")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3)
+current = true
+fov = 70.0

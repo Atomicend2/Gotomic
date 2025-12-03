@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0774g04qgq8q"]
+
+[ext_resource type="Material" uid="uid://d3u20b8w02v0w" path="res://assets/material_obstacle.tres" id="1_2n86t"]
+[ext_resource type="ArrayMesh" uid="uid://de412n8e47l4e" path="res://assets/obstacle_cube.obj" id="2_27j5h"]
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="3_6d83y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d4r22"]
+size = Vector3(1, 1, 1)
+
+[node name="Obstacle" type="StaticBody3D" groups=["obstacles"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_6d83y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_27j5h")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_2n86t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_d4r22")

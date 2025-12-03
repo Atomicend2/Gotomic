@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://bl97k7a40v7y5"]
+
+[ext_resource type="PackedScene" uid="uid://dlh485b0hly7m" path="res://scenes/player.tscn" id="1_d8j5m"]
+[ext_resource type="PackedScene" uid="uid://c0774g04qgq8q" path="res://scenes/obstacle.tscn" id="2_8g0b2"]
+[ext_resource type="Material" uid="uid://d51w47j7d4o6o" path="res://assets/material_floor.tres" id="3_7f6c6"]
+[ext_resource type="ArrayMesh" uid="uid://d3x7542v7i500" path="res://assets/floor_plane.obj" id="4_v72j8"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="5_23n6n"]
+[ext_resource type="PackedScene" uid="uid://cpvchj4044w5" path="res://scenes/ui.tscn" id="6_2xrmv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h17d0"]
+albedo_color = Color(0.9, 0.9, 0.9, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v5r2k"]
+material = SubResource("StandardMaterial3D_h17d0")
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6r177"]
+size = Vector3(20, 0.1, 20)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("5_23n6n")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.433013, -0.25, 0, 0.5, 0.866025, 0.5, -0.75, 0.433013, 0, 3, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/Floor"]
+mesh = ExtResource("4_v72j8")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_7f6c6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/Floor"]
+shape = SubResource("BoxShape3D_6r177")
+
+[node name="Player" parent="." instance=ExtResource("1_d8j5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Obstacle1" parent="." instance=ExtResource("2_8g0b2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -3)
+
+[node name="Obstacle2" parent="." instance=ExtResource("2_8g0b2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 3.5)
+
+[node name="UI" parent="." instance=ExtResource("6_2xrmv")]

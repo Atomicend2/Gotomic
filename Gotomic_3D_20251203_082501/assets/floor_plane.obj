@@ -1,0 +1,13 @@
+# Godot 4.x Mobile 3D Test - Floor Plane
+# A simple plane mesh (10x10 units), centered at the origin.
+
+v -5.0 0.0 -5.0
+v 5.0 0.0 -5.0
+v 5.0 0.0 5.0
+v -5.0 0.0 5.0
+
+# Normals
+vn 0.0 1.0 0.0
+
+f 1//1 2//1 3//1
+f 1//1 3//1 4//1
