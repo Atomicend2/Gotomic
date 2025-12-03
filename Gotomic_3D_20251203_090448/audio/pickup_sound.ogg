@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamOGGVorbis" format=3 uid="uid://cm3j8p540b6g"]
+
+[resource]
+data = {
+"frames": [
+],
+"loop": false,
+"loop_offset": 0.0,
+"mix_rate": 44100
+}

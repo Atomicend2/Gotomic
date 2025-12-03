@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://b00e3u5d7788v"]
+
+[ext_resource type="Script" path="res://scripts/player/GunSystem.gd" id="1_166b6"]
+[ext_resource type="ArrayMesh" uid="uid://dlb03c734vj0w" path="res://models/gun.obj" id="2_c0vj7"]
+[ext_resource type="Material" uid="uid://b00g4u4k10w4d" path="res://textures/placeholder_albedo.tres" id="3_70o6j"]
+[ext_resource type="AudioStream" uid="uid://c5q3s64y7n6x" path="res://audio/shoot_sound.ogg" id="4_s077w"]
+[ext_resource type="AudioStream" uid="uid://bs6b0b2e8g5y" path="res://audio/hit_sound.ogg" id="5_q8b0x"]
+[ext_resource type="PackedScene" uid="uid://dpsm5w38l71h6" path="res://scenes/ExplosionEffect.tscn" id="6_i5x0j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_36cjm"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e015d"]
+_data = {
+"Shoot": null
+}
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_166b6")
+damage = 10
+fire_rate = 0.2
+max_ammo = 30
+reload_time = 2.0
+bullet_spread_degrees = 0.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_c0vj7")
+skeleton = NodePath("")
+material/0 = SubResource("StandardMaterial3D_36cjm")
+material/1 = ExtResource("3_70o6j")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -50)
+collision_mask = 3
+exclude_parent = false
+
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_s077w")
+max_distance = 20.0
+bus = &"SFX"
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_q8b0x")
+max_distance = 10.0
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e015d")
+}
+# Placeholder animations; replace with actual gun animations if available
+# "Shoot":
+#   tracks/0/type = "value"
+#   tracks/0/path = NodePath("MeshInstance3D:position")
+#   tracks/0/interp = 1
+#   tracks/0/keys = {
+#     "times": PackedFloat32Array(0, 0.05, 0.2),
+#     "transitions": PackedFloat32Array(1, 1, 1),
+#     "update": 0,
+#     "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.1), Vector3(0, 0, 0)]
+#   }
+
+[node name="ExplosionEffect" parent="." instance=ExtResource("6_i5x0j")]
+visible = false
+emitting = false

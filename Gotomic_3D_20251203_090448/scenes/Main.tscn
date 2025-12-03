@@ -1,0 +1,183 @@
+[gd_scene load_steps=18 format=3 uid="uid://crf5n83h16a3c"]
+
+[ext_resource type="PackedScene" uid="uid://c64x8k0b02y36" path="res://scenes/Player.tscn" id="1_45w8i"]
+[ext_resource type="PackedScene" uid="uid://bt1u5gq2r12c3" path="res://scenes/Enemy.tscn" id="2_2415r"]
+[ext_resource type="PackedScene" uid="uid://ck74f51e04jrs" path="res://scenes/ResourceNode.tscn" id="3_70yfl"]
+[ext_resource type="PackedScene" uid="uid://c5s20dplgixqn" path="res://scenes/PlayerUI.tscn" id="4_5s8h2"]
+[ext_resource type="Script" path="res://scripts/core/GameManager.gd" id="5_a7w15"]
+[ext_resource type="Script" path="res://scripts/core/ResourceManager.gd" id="6_s1l3c"]
+[ext_resource type="Script" path="res://scripts/core/InventoryManager.gd" id="7_gl8r6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h17v3"]
+albedo_color = Color(0.184314, 0.235294, 0.266667, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6d203"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_o321j"]
+data = PackedVector3Array(20, 0.5, 20, -20, 0.5, 20, -20, 0.5, -20, 20, 0.5, 20, -20, 0.5, -20, 20, 0.5, -20)
+
+[sub_resource type="Animation" id="Animation_r8lq5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p3cgn"]
+resource_name = "enemy_spawn"
+length = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Vector3(0, 10, 0), Vector3(0, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4b8o"]
+_data = {
+"RESET": SubResource("Animation_r8lq5"),
+"enemy_spawn": SubResource("Animation_p3cgn")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00e0g"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.615686)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.247059, 0.247059, 0.247059, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Environment" id="Environment_q6k5k"]
+background_mode = 1
+background_color = Color(0.0901961, 0.0901961, 0.101961, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.666667, 0.705882, 0.752941, 1)
+ambient_light_energy = 0.5
+fog_enabled = true
+fog_color = Color(0.0901961, 0.0901961, 0.101961, 1)
+fog_sun_color = Color(0.901961, 0.854902, 0.811765, 1)
+fog_density = 0.005
+fog_height = 2.0
+fog_height_density = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d0i4q"]
+size = Vector3(40, 1, 40)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("5_a7w15")
+
+[node name="ResourceManager" type="Node" parent="."]
+script = ExtResource("6_s1l3c")
+
+[node name="InventoryManager" type="Node" parent="."]
+script = ExtResource("7_gl8r6")
+
+[node name="Floor" type="StaticBody3D" parent="." groups=["world"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_6d203")
+skeleton = NodePath("")
+material/0 = SubResource("StandardMaterial3D_h17v3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConcavePolygonShape3D_o321j")
+
+[node name="PlayerSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_45w8i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 1
+collision_mask = 1
+move_speed = 5.0
+
+[node name="EnemySpawner" type="Node3D" parent="."]
+
+[node name="SpawnPoint1" type="Node3D" parent="EnemySpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -10)
+
+[node name="Enemy1" parent="EnemySpawner/SpawnPoint1" instance=ExtResource("2_2415r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+patrol_points = PackedVector3Array(-10, 1, -10, -5, 1, -10, -10, 1, -5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemySpawner/SpawnPoint1/Enemy1"]
+libraries = {
+"": SubResource("AnimationLibrary_e4b8o")
+}
+autoplay = "enemy_spawn"
+
+[node name="SpawnPoint2" type="Node3D" parent="EnemySpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 10)
+
+[node name="Enemy2" parent="EnemySpawner/SpawnPoint2" instance=ExtResource("2_2415r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+patrol_points = PackedVector3Array(10, 1, 10, 5, 1, 10, 10, 1, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemySpawner/SpawnPoint2/Enemy2"]
+libraries = {
+"": SubResource("AnimationLibrary_e4b8o")
+}
+autoplay = "enemy_spawn"
+
+[node name="ResourceNodeSpawner" type="Node3D" parent="."]
+
+[node name="ResourceNode1" parent="ResourceNodeSpawner" instance=ExtResource("3_70yfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 0)
+resource_type = "Scrap"
+amount = 5
+cooldown_time = 3.0
+
+[node name="ResourceNode2" parent="ResourceNodeSpawner" instance=ExtResource("3_70yfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
+resource_type = "Energy"
+amount = 2
+cooldown_time = 7.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 10, 0)
+light_color = Color(0.901961, 0.854902, 0.811765, 1)
+shadow_enabled = true
+shadow_opacity = 0.5
+directional_shadow_split_1 = 0.1
+directional_shadow_split_2 = 0.2
+directional_shadow_split_3 = 0.5
+directional_shadow_blend_splits = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q6k5k")
+
+[node name="PlayerUI" parent="." instance=ExtResource("4_5s8h2")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15)
+collision_layer = 2
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_6d203")
+skeleton = NodePath("")
+material/0 = SubResource("StandardMaterial3D_h17v3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_d0i4q")
+disabled = true

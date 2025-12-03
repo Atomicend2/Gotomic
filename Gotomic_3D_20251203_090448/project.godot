@@ -1,0 +1,85 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly.
+
+[application]
+
+config_version=5
+run/main_scene="res://scenes/Main.tscn"
+config/name="FPS Resource Manager"
+config/description="A mobile-optimized 3D FPS game with resource management elements."
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=2
+window/handheld/orientation=1
+
+[rendering]
+
+renderer/rendering_method="mobile"
+lights_and_shadows/directional_light/blend_splits=false
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=1
+vrs/use_vrs=true
+vrs/use_vrs.mobile=true
+vrs/mode=2
+anti_aliasing/quality/msaa_2d=0
+anti_aliasing/quality/msaa_3d=0
+anti_aliasing/quality/fsr_mode=1
+limits/half_resolution_glow=true
+textures/vram_compression/import_etc2_astc_for_mobile=true
+environment/defaults/default_clear_color="#ff16161c"
+
+[input]
+
+move_forward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":79,"physical_keycode":0,"mod_command":false,"mod_alt":false,"mod_shift":false,"mod_control":false,"unicode":0,"script":null,"duration":0.0,"echo":false,"embossed_label":false,"is_virtual":false,"is_action":false,"is_match":false,"is_valid":true,"is_text_from_system":false), Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)]
+}
+move_backward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":81,"physical_keycode":0,"mod_command":false,"mod_alt":false,"mod_shift":false,"mod_control":false,"unicode":0,"script":null,"duration":0.0,"echo":false,"embossed_label":false,"is_virtual":false,"is_action":false,"is_match":false,"is_valid":true,"is_text_from_system":false), Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)]
+}
+move_left={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":77,"physical_keycode":0,"mod_command":false,"mod_alt":false,"mod_shift":false,"mod_control":false,"unicode":0,"script":null,"duration":0.0,"echo":false,"embossed_label":false,"is_virtual":false,"is_action":false,"is_match":false,"is_valid":true,"is_text_from_system":false), Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)]
+}
+move_right={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":78,"physical_keycode":0,"mod_command":false,"mod_alt":false,"mod_shift":false,"mod_control":false,"unicode":0,"script":null,"duration":0.0,"echo":false,"embossed_label":false,"is_virtual":false,"is_action":false,"is_match":false,"is_valid":true,"is_text_from_system":false), Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)]
+}
+jump={
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":32,"physical_keycode":0,"mod_command":false,"mod_alt":false,"mod_shift":false,"mod_control":false,"unicode":0,"script":null,"duration":0.0,"echo":false,"embossed_label":false,"is_virtual":false,"is_action":false,"is_match":false,"is_valid":true,"is_text_from_system":false), Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressed":false,"pressure":0.0,"script":null)]
+}
+shoot={
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"canceled":false,"script":null,"double_click":false,"command_or_control_at_click":false), Object(InputEventScreenTouch,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"index":0,"position":Vector2(0, 0),"pressed":false,"canceled":false,"script":null)]
+}
+interact={
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"pressed":false,"keycode":69,"physical_keycode":0,"mod_command":false,"mod_alt":false,"mod_shift":false,"mod_control":false,"unicode":0,"script":null,"duration":0.0,"echo":false,"embossed_label":false,"is_virtual":false,"is_action":false,"is_match":false,"is_valid":true,"is_text_from_system":false)]
+}
+
+[autoload]
+
+GameManager="res://scripts/core/GameManager.gd"
+ResourceManager="res://scripts/core/ResourceManager.gd"
+InventoryManager="res://scripts/core/InventoryManager.gd"
+
+[internationalization]
+
+locale/test="en"
+
+[editor_metadata]
+
+_imported_layout="{
+\"scripts\": [
+{
+\"path\": \"res://scripts/player/PlayerController.gd\",
+\"size\": 1.0
+},
+{
+\"path\": \"res://scripts/player/CameraLook.gd\",
+\"size\": 1.0
+}
+]
+}"

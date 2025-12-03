@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck74f51e04jrs"]
+
+[ext_resource type="Script" path="res://scripts/world/ResourceNode.gd" id="1_y4b7b"]
+[ext_resource type="ArrayMesh" uid="uid://dn775w3ycn87c" path="res://models/resourcenode.obj" id="2_6s44q"]
+[ext_resource type="Material" uid="uid://b00g4u4k10w4d" path="res://textures/placeholder_albedo.tres" id="3_70k6r"]
+[ext_resource type="AudioStream" uid="uid://cm3j8p540b6g" path="res://audio/pickup_sound.ogg" id="4_8y66o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1k4r1"]
+emission_enabled = true
+emission = Color(0.2, 0.8, 0.2, 1)
+emission_energy_multiplier = 0.5
+albedo_color = Color(0.2, 0.8, 0.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d38s4"]
+radius = 0.7
+
+[node name="ResourceNode" type="StaticBody3D" groups=["interactables"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_y4b7b")
+resource_type = "Scrap"
+amount = 10
+cooldown_time = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+mesh = ExtResource("2_6s44q")
+skeleton = NodePath("")
+material/0 = SubResource("StandardMaterial3D_1k4r1")
+material/1 = ExtResource("3_70k6r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_d38s4")
+
+[node name="PickupSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_8y66o")
+unit_db = -5.0
+max_distance = 10.0
+bus = &"SFX"

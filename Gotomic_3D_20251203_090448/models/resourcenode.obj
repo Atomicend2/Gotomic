@@ -1,0 +1,32 @@
+# Godot 4.5 Prototype Resource Node Model
+# Simple Crystal/Diamond Shape (Low-poly)
+
+v 0.0 1.0 0.0
+v 0.5 0.0 0.5
+v -0.5 0.0 0.5
+v -0.5 0.0 -0.5
+v 0.5 0.0 -0.5
+v 0.0 -1.0 0.0
+
+vn 0.0 1.0 0.0
+vn 0.0 -1.0 0.0
+vn 0.707 0.707 0.0
+vn -0.707 0.707 0.0
+vn 0.0 0.707 0.707
+vn 0.0 0.707 -0.707
+vn 0.707 -0.707 0.0
+vn -0.707 -0.707 0.0
+vn 0.0 -0.707 0.707
+vn 0.0 -0.707 -0.707
+
+g CrystalBody
+# Top pyramid faces
+f 1 3 2
+f 1 2 5
+f 1 5 4
+f 1 4 3
+# Bottom pyramid faces
+f 6 2 3
+f 6 5 2
+f 6 4 5
+f 6 3 4
