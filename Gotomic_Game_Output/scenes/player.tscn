@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx6g1g0r64d2u"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_n24o0"]
+[ext_resource type="Script" path="res://scripts/health_component.gd" id="2_d74s4"]
+[ext_resource type="PackedScene" uid="uid://d3yq7l723v6m" path="res://scenes/gun.tscn" id="3_1407v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6r0s3"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_166ym"]
+albedo_color = Color(0, 0.533333, 1, 1)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_n24o0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_6r0s3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+fov = 80.0
+size = 1.0
+
+[node name="GunHolder" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.3, -0.3)
+
+[node name="Gun" parent="Camera3D/GunHolder" instance=ExtResource("3_1407v")]
+
+[node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+target_position = Vector3(0, 0, -3)
+collision_mask = 4
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_d74s4")
+max_health = 100
+current_health = 100
+
+[node name="DebugBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_6r0s3")
+skeleton = NodePath("")
+material_override = SubResource("StandardMaterial3D_166ym")

@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddfsq61y8i3v2"]
+
+[ext_resource type="Material" uid="uid://dr6o07l8i5eey" path="res://materials/white_material.tres" id="1_417d4"]
+[ext_resource type="ArrayMesh" uid="uid://c5e3f53o82s4d" path="res://assets/gun.obj" id="2_277o3"]
+[ext_resource type="ArrayMesh" uid="uid://cpx0h165qfsv3" path="res://materials/red_material.tres" id="3_g70vj"]
+[ext_resource type="ArrayMesh" uid="uid://c5e3f53o82s4d" path="res://assets/cube.obj" id="4_v722s"]
+[ext_resource type="PackedScene" uid="uid://cx6g1g0r64d2u" path="res://scenes/player.tscn" id="5_85o4a"]
+[ext_resource type="PackedScene" uid="uid://ddo403v33o367" path="res://ui/hud.tscn" id="6_iwnyc"]
+[ext_resource type="PackedScene" uid="uid://brb665c87uovb" path="res://scenes/door.tscn" id="7_v25x7"]
+[ext_resource type="PackedScene" uid="uid://cc0q8y8e86x40" path="res://scenes/stair_section.tscn" id="8_l7q2j"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_6r0s3"]
+
+[node name="MainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Sky" type="Sky" parent="WorldEnvironment"]
+
+[node name="ProceduralSkyMaterial" type="ProceduralSkyMaterial" parent="WorldEnvironment/Sky"]
+sky_top_color = Color(0.32549, 0.490196, 0.729412, 1)
+sky_horizon_color = Color(0.647059, 0.784314, 0.941176, 1)
+ground_horizon_color = Color(0.647059, 0.784314, 0.941176, 1)
+
+[node name="Environment" type="Environment" parent="WorldEnvironment"]
+background_mode = 2
+sky = SubResource("ProceduralSkyMaterial_m1u20")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 5, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -0.5, 0)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_417d4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_6r0s3")
+
+[node name="Wall1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.5, 0, 0, 0, 0.1, 0, 1.25, -10)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall1"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_417d4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1"]
+shape = SubResource("BoxShape3D_h17vj")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.5, 0, 0, 0, 0.1, 0, 1.25, 10)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_417d4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_h17vj")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 2.5, 0, 0, 0, 1, -10, 1.25, 0)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_417d4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("BoxShape3D_h17vj")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 2.5, 0, 0, 0, 1, 10, 1.25, 0)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_417d4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("BoxShape3D_h17vj")
+
+[node name="TargetCube" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -7)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TargetCube"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_417d4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetCube"]
+shape = SubResource("BoxShape3D_h17vj")
+
+[node name="HealthComponent" type="Node" parent="TargetCube"]
+script = ExtResource("2_d74s4")
+max_health = 50
+current_health = 50
+
+[node name="Player" parent="." instance=ExtResource("5_85o4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="HUD" parent="." instance=ExtResource("6_iwnyc")]
+
+[node name="Door" parent="." instance=ExtResource("7_v25x7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+
+[node name="Stairs" parent="." instance=ExtResource("8_l7q2j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+
+[node name="TargetCube2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -7)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TargetCube2"]
+mesh = ExtResource("4_v722s")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_g70vj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetCube2"]
+shape = SubResource("BoxShape3D_h17vj")
+
+[node name="HealthComponent" type="Node" parent="TargetCube2"]
+script = ExtResource("2_d74s4")
+max_health = 1
+current_health = 1
+
+// Add these resources and remove old ones
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m1u20"]
+sky_top_color = Color(0.32549, 0.490196, 0.729412, 1)
+sky_horizon_color = Color(0.647059, 0.784314, 0.941176, 1)
+ground_horizon_color = Color(0.647059, 0.784314, 0.941176, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h17vj"]
+size = Vector3(1, 1, 1)

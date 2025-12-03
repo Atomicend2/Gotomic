@@ -1,0 +1,109 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddo403v33o367"]
+
+[sub_resource type="SystemFont" id="SystemFont_0w74c"]
+font_names = PackedStringArray("Consolas", "Courier New")
+
+[sub_resource type="LabelSettings" id="LabelSettings_t0n7d"]
+font = SubResource("SystemFont_0w74c")
+font_size = 32
+font_color = Color(1, 1, 1, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Health: 100/100"
+label_settings = SubResource("LabelSettings_t0n7d")
+autowrap_mode = 0
+
+[node name="AmmoLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Ammo: 30/30"
+text_overrun_behavior = 1
+label_settings = SubResource("LabelSettings_t0n7d")
+horizontal_alignment = 2
+autowrap_mode = 0
+
+[node name="InteractPrompt" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press 'E' to Interact"
+label_settings = SubResource("LabelSettings_t0n7d")
+horizontal_alignment = 1
+autowrap_mode = 0
+
+[node name="Crosshair" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Crosshair"]
+layout_mode = 2
+text = "+"
+label_settings = SubResource("LabelSettings_t0n7d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[editable path="Crosshair"]
+
+[connection signal="resized" from="." to="Crosshair" method="set_position_to_center"]
+
+func _ready():
+	update_health(100, 100) # Initial values
+	update_ammo(30, 30) # Initial values
+	hide_interact_prompt()
+
+func update_health(new_health: int, max_health: int) -> void:
+	$HealthLabel.text = "Health: %s/%s" % [new_health, max_health]
+
+func update_ammo(new_ammo: int, max_ammo: int) -> void:
+	$AmmoLabel.text = "Ammo: %s/%s" % [new_ammo, max_ammo]
+
+func show_interact_prompt(text: String = "Press 'E' to Interact") -> void:
+	$InteractPrompt.text = text
+	$InteractPrompt.show()
+
+func hide_interact_prompt() -> void:
+	$InteractPrompt.hide()
